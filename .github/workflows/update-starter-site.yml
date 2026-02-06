@@ -1,0 +1,21 @@
+name: Update from Islandora Starter Site
+
+on:
+  schedule:
+    - cron: '0 7 * * *' # Runs daily at 7am UTC
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-24.04
+    if: github.repository == 'Islandora-Devops/isle-site-template'
+    steps:
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+
+      - name: Update from starter site
+        run: make overwrite-starter-site
+
+      - name: Create Pull Request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: make create-starter-site-pr
