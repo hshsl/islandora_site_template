@@ -30,7 +30,7 @@ secrets:
     file: ./certs/privkey.pem
   CERT_AUTHORITY:
     file: ./certs/rootCA.pem
-  UID:
+  HOST_UID:
     file: ./certs/UID
   # Production secrets:
   ACTIVEMQ_PASSWORD:
@@ -117,6 +117,18 @@ services:
           - linux/arm64
     environment:
       DEVELOPMENT_ENVIRONMENT: ${DEVELOPMENT_ENVIRONMENT:-false}
+      UID: ${WEB_UID:-1000}
+      S6_STAGE2_HOOK: "rm -f /etc/s6-overlay/s6-rc.d/user/contents.d/install"
+      # DB_HOST: ${DB_MYSQL_HOST}
+      DB_PORT: ${DB_MYSQL_PORT}
+      # DB_USER: Islandora_user
+      # DB_NAME: islandora_test
+      # Kept for compatibility:
+      DB_MYSQL_HOST: ${DB_MYSQL_HOST}
+      # DB_MYSQL_PORT: 3306
+      DRUPAL_DEFAULT_DB_NAME: ${DRUPAL_DEFAULT_DB_NAME}
+      DRUPAL_DEFAULT_DB_USER: ${DRUPAL_DEFAULT_DB_USER}
+      DRUPAL_DEFAULT_DB_PASSWORD: ${DRUPAL_DEFAULT_DB_PASSWORD}
       DRUPAL_DEFAULT_BROKER_URL: tcp://activemq:61613
       DRUPAL_DEFAULT_CANTALOUPE_URL: ${URI_SCHEME}://${DOMAIN}/cantaloupe/iiif/2
       DRUPAL_DEFAULT_CONFIGDIR: /var/www/drupal/config/sync
@@ -138,10 +150,13 @@ services:
       start_period: ${DRUPAL_HEALTHCHECK_START_PERIOD:-0s}
       retries: ${DRUPAL_HEALTHCHECK_RETRIES:-3}
     image: ${REPOSITORY}/${COMPOSE_PROJECT_NAME}:${TAG}
+    # REMOVED the sleep entrypoint here so it runs normally
+    # entrypoint: ["tail", "-f", "/dev/null"]
     secrets:
       - source: CERT_PUBLIC_KEY
       - source: CERT_AUTHORITY
-      - source: UID
+      - source: HOST_UID
+        target: UID
       - source: DB_ROOT_PASSWORD
       - source: DRUPAL_DEFAULT_ACCOUNT_PASSWORD
       - source: DRUPAL_DEFAULT_DB_PASSWORD
@@ -261,7 +276,7 @@ services:
     <<: *common
     depends_on:
       drupal:
-        condition: service_healthy
+        condition: service_started
     image: islandora/solr:${ISLANDORA_TAG}
     volumes:
       - solr-data:/data:rw
@@ -300,7 +315,7 @@ services:
       --api.debug=${DEVELOPMENT_ENVIRONMENT:-false}
     depends_on:
       drupal:
-        condition: service_healthy
+        condition: service_started
     environment:
       DEVELOPMENT_ENVIRONMENT: ${DEVELOPMENT_ENVIRONMENT:-false}
       DOMAIN: ${DOMAIN}
