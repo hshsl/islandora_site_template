@@ -1,0 +1,14 @@
+global-styling:
+  css:
+    theme:
+      css/style.css: {}
+      bootstrap-icons/font/bootstrap-icons.css: {}
+      
+global-scripts:
+  js:
+    /libraries/shufflejs/dist/shuffle.min.js: { minified: true }
+    js/hshsl_islandora.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once

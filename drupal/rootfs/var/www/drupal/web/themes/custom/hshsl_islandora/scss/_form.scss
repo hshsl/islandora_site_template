@@ -1,0 +1,54 @@
+#advanced-search-ajax {
+    .form-control, .form-select {
+        width:auto;
+    }
+    [name^="add-term"], [name^="remove-term"] {
+        border-radius: 50% !important;
+        border: none !important;
+        padding: 4px !important;
+        height: 25px !important;
+        width: 25px !important;
+        line-height: 5px !important;
+        font-weight: 800 !important;
+        background-color: #BEBEBE !important;
+        color: white !important;
+        margin: 3px;
+    }
+    [id*='conjunction'] {
+        display:block !important;
+    }
+}
+[id^="views-exposed-form-solr-search-content-block-1"] {
+    [id^="edit-actions"] {
+        float:left;
+        clear: none !important;
+        margin-top: calc(var(--#{$prefix}body-line-height) * ($font-size-base + .15em) + 1em);
+    }
+}
+#views-exposed-form-top-level-collections-page-1 {
+    padding: 1em;
+    width:60%;
+}
+.views-exposed-form label {
+    font-weight: 600;
+    font-size: 1.2em;
+}
+#views-exposed-form-top-level-collections-page-1 #edit-submit-top-level-collections {
+    display: none;                                                          
+}
+
+#views-exposed-form-top-level-collections-page-1 .form-type-select  {
+    width: 250px;
+}
+#views-exposed-form-top-level-collections-page-1 .form-type-select::after {
+  position: relative;
+  content: "";
+  width: 0;
+  height: 0;
+  border-bottom: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-left: 7px solid transparent;
+  border-top: 7px solid black;
+  top: 8px;
+  right: 11px;
+}

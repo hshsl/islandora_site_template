@@ -1,0 +1,30 @@
+#searchOverlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000000d4;
+    opacity: 0;
+    visibility: hidden;
+    transition: 1s;
+    z-index: 1200;
+    .closeBtn {
+        cursor: pointer;
+        color: white;
+        font-size: 25px;
+        margin-left: -10px;
+    }
+    h2 {
+        color: white;
+    }
+}
+ 
+#searchOverlay .container{
+    height: 100vh;
+}
+ 
+div#searchOverlay.showing {
+    opacity: .95;
+    visibility: visible;
+}

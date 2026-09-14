@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Theme override for a select element.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the <select> tag.
+ * - options: The <option> element children.
+ *
+ * @see template_preprocess_select()
+ */
+#}
+{% apply spaceless %} 
+    </button>
+    <div class="d-flex justify-content-center gap-0" id="filterCollections">   
+      <button  class="btn btn-primary m-0 rounded-0 px-4 shuffle-filter" role="button" data-bs-toggle="button" data-filter="all">All</button> 
+      {% for option in options %}
+        <button  class="btn btn-primary m-0 rounded-0 px-4 shuffle-filter" role="button" data-bs-toggle="button" data-filter="{{option.label|lower}}">{{ option.label|title}}</button>
+      {% endfor %}
+    </div>
+{% endapply %}

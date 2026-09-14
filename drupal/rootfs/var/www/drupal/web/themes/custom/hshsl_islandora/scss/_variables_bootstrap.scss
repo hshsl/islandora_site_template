@@ -1,0 +1,132 @@
+// Bootstrap variables (overrides).
+$form-text-margin-top: 0;
+$legend-font-size: 1rem;
+$table-cell-padding-x: .75rem;
+$font-size-base: 1rem;
+$font-size-sm: .875rem;
+$font-size-md: 1.15rem;
+$font-size-lg: 1.25rem;
+$font-size-xl: 1.75rem;
+$font-size-xxl: 2rem;
+
+// colors from bootstrap
+$indigo:  #6610f2 !default;
+$pink:    #d63384 !default;
+$orange:  #fd7e14 !default;
+$green:   #198754 !default;
+$teal:    #20c997 !default;
+$cyan:    #0dcaf0 !default;
+
+
+// UMB Style guide colors
+$black:          #2C2A29 !default;
+$blue:           #007698 !default;
+$charcoal:       #696a6d !default;
+$dark-red:       #9c1d17 !default;
+$dark-gray:      #333 !default;
+$forrest-green:  #33460d !default;
+$gray:           #95a0a9 !default;
+$light-gray:     #E2EDF6 !default;
+$medium-gray:    #404040 !default;
+$plum:           #49182d !default;
+$purple:         #735990 !default;
+$red:            #C8102E !default;
+$sea-green:      #b4cc95 !default;
+$slate:          #5d87a1 !default;
+$tan:            #c8b18b !default;
+$yellow:         #FFCD00 !default;
+
+$colors: (
+  "black": $black,
+  "blue": $blue,
+  "charcoal": $charcoal,
+  "cyan": $cyan,
+  "dark red": $dark-red,
+  "dark gray": $dark-gray,
+  "forrest green": $forrest-green,
+  "indigo":  $indigo,
+  "light gray": $light-gray,
+  "gray": $gray,
+  "green": $green,
+  "medium-gray": $medium-gray,
+  "orange": $orange,
+  "pink": $pink,
+  "plum": $plum,  
+  "purple": $purple,
+  "red": $red,
+  "sea green": $sea-green,
+  "slate": $slate,
+  "tan": $tan,
+  "teal": $teal,
+  "yellow": $yellow
+);
+
+// scss-docs-start theme-color-variables
+$primary:       $slate !default;
+$secondary:     $charcoal !default;
+$success:       $sea-green !default;
+$info:          $blue !default;
+$warning:       $yellow !default;
+$danger:        $red !default;
+$light:         $light-gray !default;
+$dark:          $black !default;
+// scss-docs-end theme-color-variables
+
+// scss-docs-start theme-colors-map
+$theme-colors: (
+  "primary":    $red,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+  "dark":       $dark
+) !default;
+
+$font-family-base: Calibri, Arial, Helvetica, sans-serif !default;
+$headings-color: $red !default;
+$font-size-base: 1.1rem;
+$link-color: darken($blue, 10%);
+
+
+
+$navbar-brand-image-height: 96px !default;
+$navbar-brand-image-height-lg: 96px !default;
+$navbar-brand-image-width: auto !default;
+$navbar-brand-image-margin: 0 1rem 0 0 !default;
+
+$navbar-brand-site-title-text-transform: uppercase !default;
+$navbar-brand-site-title-font-size: 1.5rem !default;
+$navbar-brand-site-title-font-weight: bold !default;
+$navbar-brand-site-title-letter-spacing: 2px !default;
+$navbar-brand-site-slogan-font-size: .875rem !default;
+
+$region-padding: 0 .5rem !default;
+
+$footer-padding: 2rem 0 !default;
+$header-padding: 0.5rem 0 0 0.5rem!default;
+
+$nav-tabs-link-active-bg-sm: #dee2e6 !default;
+
+$local-tasks-primary-margin: 1rem 0 !default;
+$local-tasks-secondary-margin: 0 0 1rem 0 !default;
+
+$table-striped-bg: #f9f9f9 !default;
+
+$nav-link-padding-y: .75rem !default;
+$nav-link-padding-x: .75rem !default;
+$nav-link-font-size: 1.1rem !default;
+
+$card-border-radius: 0 !default;
+$card-spacer-x: .5rem !default;
+$card-spacer-y: .5rem !default;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+) !default;

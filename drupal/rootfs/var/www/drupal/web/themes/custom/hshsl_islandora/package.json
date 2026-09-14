@@ -1,0 +1,20 @@
+{
+  "name": "hshsl_islandora",
+  "version": "1.0.0",
+  "description": "packages for hshsl islandora sub-theme",
+  "main": "index.js",
+  "scripts": {
+    "lint:sass": "sass-lint -c .sass-lint.yml --verbose",
+    "build:sass": "sass scss/style.scss css/style.css"
+  },
+  "keywords": [
+    "drupal",
+    "theme"
+  ],
+  "author": "Michael Craven",
+  "license": "MIT",
+  "devDependencies": {
+    "sass": "^1.79.3",
+    "sass-lint": "^1.13.1"
+  }
+}

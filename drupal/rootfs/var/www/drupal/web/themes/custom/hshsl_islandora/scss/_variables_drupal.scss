@@ -1,0 +1,62 @@
+@import "../../../contrib/bootstrap5/dist/bootstrap/5.3.8/scss/mixins/breakpoints";
+@import "variables_bootstrap";
+
+// Theme variables.
+#block-hshsl-islandora-branding {
+    padding-bottom: 1rem;
+    img {
+        max-width: 100% !important;
+        max-height: 96px !important;
+        height: auto !important;
+        width: auto !important;
+    }
+}
+
+footer {
+    color: white;
+    font-size: 1.05rem;
+    .footer-dark a {
+        color: white;
+        transition: all .5s;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+a {
+    text-decoration: none !important;
+    &:hover, &:focus {
+        text-decoration: underline !important;
+    }
+}
+
+#block-hshsl-islandora-account-menu {
+    .navbar-nav {
+        .nav-item {
+            a {
+                @include media-breakpoint-down(md) {
+                    font-size: medium;
+                }
+            }
+        }
+    }
+}
+#branding {
+    @include media-breakpoint-down(md) {
+        background-image: none !important;
+    }
+}
+
+#search-form-collapsed {
+    
+    @include media-breakpoint-up(md) {
+        display: none !important;
+    }
+}
+
+#searchButton {
+    @include media-breakpoint-down(md) {
+        display: none !important;
+    }
+}

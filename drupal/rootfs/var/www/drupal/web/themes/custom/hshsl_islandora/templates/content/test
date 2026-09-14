@@ -1,0 +1,9 @@
+{%
+  set properties = [
+    content.field_background_color ? 'background-color:'~ content.field_background_color|render ~ ';',
+    content.field_background_color ? 'background-image:url("'~ content.field_background_image ~ '"); background-size: cover; background-repeat: no-repeat',
+  ]
+%}
+
+
+

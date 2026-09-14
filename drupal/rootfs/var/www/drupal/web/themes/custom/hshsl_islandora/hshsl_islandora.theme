@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * HSHSL Islandora theme file.
+ */
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+
+function hshsl_islandora_form_system_theme_settings_alter(&$form, FormStateInterface $form_state, $form_id = NULL){
+  $form['footer_details']['b5_footer_bg_schema']['#options']['footer-gray'] = 'gray';
+}
+ 
+
+

@@ -1,0 +1,78 @@
+.header-container {
+    background-color: $black;
+}
+.region-header {
+    padding: $header-padding;
+    color: $white;
+    font-size: $font-size-sm;
+}
+.region-nav-main {
+    width:100%;
+}
+#main-nav {
+    background-color: $red;
+    color:$white;
+    @include media-breakpoint-down(md) {
+        background-color: transparent;
+        color: $medium-gray;
+    }
+    a {
+        color: $white;
+        @include media-breakpoint-down(md) {
+            color: $medium-gray;
+        }
+        &:hover {
+            background-color: transparent  !important;
+            color: white;
+            text-decoration: underline !important;
+        }
+    }
+    .searchLink {
+        border: none;
+        background: none;
+        color: white;
+    }
+}
+.region-nav-user {
+    font-size:  $font-size-sm;
+}
+#branding {
+    background-image: url(/themes/custom/hshsl_islandora/swoosh-grey1.png);
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+}
+
+#navbarSupportedContent {
+    ul.navbar-nav {
+        @include media-breakpoint-down(md) {
+            border: 1px solid $gray;
+            width:100%;
+        }
+        .nav-item {
+            @include media-breakpoint-down(md) {
+                border-bottom: 1px solid $gray;
+                width: 100%;
+                display: block;
+            }
+            &:last-of-type {
+                @include media-breakpoint-down(md) {
+                    border-bottom: none;
+                }
+            }
+            a:hover {
+                background-color: $light-gray;
+                text-decoration: none !important;
+            }
+        }
+    }
+}
+#searchButton {
+    @include media-breakpoint-down(md) {
+        display: hidden;
+    }
+}
+
+.sticky-top {
+    z-index: 500;
+}
