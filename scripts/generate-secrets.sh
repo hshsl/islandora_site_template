@@ -47,7 +47,16 @@ done < \
 
 for secret in "${SECRETS[@]}"; do
   if [ ! -f "${secret}" ]; then
-    echo "Creating: ${secret}" >&2
-    (grep -ao "${CHARACTERS}" </dev/urandom || true) | head "-${LENGTH}" | tr -d '\n' > "${secret}"
+    # Extract filename as variable name (e.g., secrets/DRUPAL_DEFAULT_DB_PASSWORD -> DRUPAL_DEFAULT_DB_PASSWORD)
+    var_name=$(basename "${secret}")
+
+    # If the environment variable exists and is non-empty, use it
+    if [ -n "${!var_name:-}" ]; then
+      echo "Creating from env: ${secret}" >&2
+      printf "%s" "${!var_name}" > "${secret}"
+    else
+      echo "Creating random: ${secret}" >&2
+      (grep -ao "${CHARACTERS}" </dev/urandom || true) | head "-${LENGTH}" | tr -d '\n' > "${secret}"
+    fi
   fi
 done

@@ -25,11 +25,11 @@ volumes:
 secrets:
   # Certificates are only used for development environments.
   CERT_PUBLIC_KEY:
-    file: ./certs/cert.pem
+    file: ./certs/7156985429_fullchain.pem
   CERT_PRIVATE_KEY:
-    file: ./certs/privkey.pem
+    file: ./certs/private.key
   CERT_AUTHORITY:
-    file: ./certs/rootCA.pem
+    file: ./certs/RootCA.cer
   HOST_UID:
     file: ./certs/UID
   # Production secrets:
@@ -80,6 +80,11 @@ services:
     image: islandora/blazegraph:${ISLANDORA_TAG}
     volumes:
       - blazegraph-data:/data:rw
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
 
   cantaloupe:
     <<: *common
@@ -125,6 +130,7 @@ services:
       # DB_NAME: islandora_test
       # Kept for compatibility:
       DB_MYSQL_HOST: ${DB_MYSQL_HOST}
+      DB_MYSQL_SSL_VERIFY: "false"
       # DB_MYSQL_PORT: 3306
       DRUPAL_DEFAULT_DB_NAME: ${DRUPAL_DEFAULT_DB_NAME}
       DRUPAL_DEFAULT_DB_USER: ${DRUPAL_DEFAULT_DB_USER}
@@ -134,7 +140,7 @@ services:
       DRUPAL_DEFAULT_CONFIGDIR: /var/www/drupal/config/sync
       DRUPAL_DEFAULT_FCREPO_HOST: fcrepo
       DRUPAL_DEFAULT_FCREPO_PORT: 8080
-      DRUPAL_DEFAULT_FCREPO_URL: ${URI_SCHEME}://fcrepo.${DOMAIN}/fcrepo/rest/
+      DRUPAL_DEFAULT_FCREPO_URL: ${URI_SCHEME}://fcrepo:8080/fcrepo/rest/
       DRUPAL_DEFAULT_INSTALL_EXISTING_CONFIG: "true"
       DRUPAL_DEFAULT_NAME: Islandora Digital Collections
       DRUPAL_DEFAULT_PROFILE: minimal
@@ -173,6 +179,11 @@ services:
         target: /var/www/drupal/private
         type: volume
       - drupal-solr-config:/opt/solr/server/solr/default:z,rw
+      - ./certs/RootCA.cer:/usr/local/share/ca-certificates/RootCA.cer:ro
+    deploy:
+      resources:
+        limits:
+          memory: 2G
 
   fcrepo:
     <<: *common
@@ -286,6 +297,10 @@ services:
         type: volume
         volume:
           nocopy: true
+    deploy:
+      resources:
+        limits:
+          memory: 2G
 
   traefik:
     <<: *common

@@ -17,5 +17,5 @@ esac
 curl -JL "https://dl.filippo.io/mkcert/latest?for=linux/$PLATFORM" -o /usr/local/bin/mkcert
 chmod +x /usr/local/bin/mkcert
 
-./scripts/generate-certs.sh
+# ./scripts/generate-certs.sh
 ./scripts/generate-secrets.sh

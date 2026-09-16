@@ -57,16 +57,31 @@ $settings['trusted_host_patterns'] = [
   0 => file_get_contents($path . 'DRUPAL_DEFAULT_SITE_URL'),
 ];
 
-// Database settings are also derived from environment variables.
+// Read password from secret file or environment variable
+$db_password = '';
+if (file_exists('/var/run/secrets/DRUPAL_DEFAULT_DB_PASSWORD')) {
+    $db_password = trim(file_get_contents('/var/run/secrets/DRUPAL_DEFAULT_DB_PASSWORD'));
+} elseif (file_exists($path . 'DRUPAL_DEFAULT_DB_PASSWORD')) {
+    $db_password = trim(file_get_contents($path . 'DRUPAL_DEFAULT_DB_PASSWORD'));
+} else {
+    $db_password = getenv('DRUPAL_DEFAULT_DB_PASSWORD') ?: '';
+}
+
 $databases['default']['default'] = [
-  'database' => file_get_contents($path . 'DRUPAL_DEFAULT_DB_NAME'),
-  'username' => file_get_contents($path . 'DRUPAL_DEFAULT_DB_USER'),
-  'password' => file_get_contents($path . 'DRUPAL_DEFAULT_DB_PASSWORD'),
-  'host' => file_get_contents($path . 'DB_MYSQL_HOST'),
-  'port' => file_get_contents($path . 'DB_MYSQL_PORT'),
-  'prefix' => '',
-  'driver' => 'mysql',
-  'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
+  'database'  => getenv('DRUPAL_DEFAULT_DB_NAME') ?: (file_exists($path . 'DRUPAL_DEFAULT_DB_NAME') ? trim(file_get_contents($path . 'DRUPAL_DEFAULT_DB_NAME')) : ''),
+  'username'  => getenv('DRUPAL_DEFAULT_DB_USER') ?: (file_exists($path . 'DRUPAL_DEFAULT_DB_USER') ? trim(file_get_contents($path . 'DRUPAL_DEFAULT_DB_USER')) : ''),
+  'password'  => $db_password,
+  'host'      => getenv('DB_MYSQL_HOST') ?: (file_exists($path . 'DB_MYSQL_HOST') ? trim(file_get_contents($path . 'DB_MYSQL_HOST')) : '127.0.0.1'),
+  'port'      => getenv('DB_MYSQL_PORT') ?: (file_exists($path . 'DB_MYSQL_PORT') ? trim(file_get_contents($path . 'DB_MYSQL_PORT')) : '3306'),
+  'prefix'    => '',
+  'driver'    => 'mysql',
+  'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
+  'autoload'  => 'core/modules/mysql/src/Driver/Database/mysql/',
+  'pdo'       => [
+    \PDO::MYSQL_ATTR_SSL_CA => FALSE,
+    \PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => FALSE,
+    \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4',
+  ],
 ];
 
 // Flysystem
