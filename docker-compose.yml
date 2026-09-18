@@ -170,14 +170,8 @@ services:
       - source: JWT_PRIVATE_KEY
       - source: JWT_PUBLIC_KEY
     volumes:
-      - read_only: false
-        source: drupal-public-files
-        target: /var/www/drupal/web/sites/default/files
-        type: volume
-      - read_only: false
-        source: drupal-private-files
-        target: /var/www/drupal/private
-        type: volume
+      - ${DRUPAL_PUBLIC_FILES_PATH:-./data/drupal/public}:/var/www/drupal/web/sites/default/files
+      - ${DRUPAL_PRIVATE_FILES_PATH:-./data/drupal/private}:/var/www/drupal/private
       - drupal-solr-config:/opt/solr/server/solr/default:z,rw
       - ./certs/RootCA.cer:/usr/local/share/ca-certificates/RootCA.cer:ro
     deploy:
@@ -198,12 +192,11 @@ services:
       FCREPO_PERSISTENCE_TYPE: mysql
     image: islandora/fcrepo6:${ISLANDORA_TAG}
     secrets:
-      - source: DB_ROOT_PASSWORD
       - source: FCREPO_DB_PASSWORD
       - source: JWT_ADMIN_TOKEN
       - source: JWT_PUBLIC_KEY
     volumes:
-      - fcrepo-data:/data:rw
+      - ${FCREPO_STORAGE_PATH:-./data/fcrepo}:/data:rw
 
   fits:
     <<: *common
