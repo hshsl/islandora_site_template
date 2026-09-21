@@ -193,6 +193,7 @@ services:
     image: islandora/fcrepo6:${ISLANDORA_TAG}
     secrets:
       - source: FCREPO_DB_PASSWORD
+      - source: DB_ROOT_PASSWORD
       - source: JWT_ADMIN_TOKEN
       - source: JWT_PUBLIC_KEY
     volumes:
