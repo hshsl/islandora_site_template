@@ -49,7 +49,7 @@ $config['search_api.server.default_solr_server']['backend_config']['connector_co
 $config['search_api.server.default_solr_server']['backend_config']['connector_config']['core'] = file_get_contents($path . 'DRUPAL_DEFAULT_SOLR_CORE');
 
 // Others are hardcoded.
-$config['key.key.islandora_rsa_key']['key_provider_settings']['file_location'] = '/opt/keys/jwt/private.key';
+$config['key.key.islandora_rsa_key']['key_provider_settings']['file_location'] = '/run/secrets/JWT_PRIVATE_KEY';
 
 // Some settings are derived from environment variables.
 $settings['hash_salt'] = file_get_contents($path . 'DRUPAL_DEFAULT_SALT');

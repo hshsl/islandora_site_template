@@ -99,10 +99,10 @@
   {% endif %}
   <div{{ content_attributes.addClass('node__content') }}>
     <div class="row">
-        <div class="col-2">
+        <div class="col-12 col-md-4 col-lg-2 text-center text-md-start">
             {{content.did_image}}
         </div>
-        <div class="col-10">
+        <div class="col-12 col-md-8 col-lg-10">
             {{ content|without('did_image') }}  
         </div>
     </div>
