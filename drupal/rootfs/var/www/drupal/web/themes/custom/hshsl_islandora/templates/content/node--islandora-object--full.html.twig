@@ -96,7 +96,7 @@
         {{ content.did_image }}
       </div>
       <div class="col-9">
-        {{ content|without('links', 'langcode', 'field_model', 'did_image') }}
+        {{ content|without('links', 'langcode', 'field_model', 'did_image', 'field_language', 'field_resource_type', 'field_subject_general') }}
       </div>
     </div>
   {% else %}
