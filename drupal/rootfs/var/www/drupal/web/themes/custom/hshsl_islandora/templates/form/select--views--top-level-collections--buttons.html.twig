@@ -10,12 +10,10 @@
  * @see template_preprocess_select()
  */
 #}
-{% apply spaceless %} 
-    </button>
-    <div class="d-flex justify-content-center gap-0" id="filterCollections">   
-      <button  class="btn btn-primary m-0 rounded-0 px-4 shuffle-filter" role="button" data-bs-toggle="button" data-filter="all">All</button> 
-      {% for option in options %}
-        <button  class="btn btn-primary m-0 rounded-0 px-4 shuffle-filter" role="button" data-bs-toggle="button" data-filter="{{option.label|lower}}">{{ option.label|title}}</button>
-      {% endfor %}
-    </div>
-{% endapply %}
+  </button>
+  <div class="d-flex justify-content-center gap-0" id="filterCollections">   
+    <button  class="btn btn-primary m-0 rounded-0 px-4 shuffle-filter" role="button" data-bs-toggle="button" data-filter="all">All</button> 
+    {%- for option in options -%}
+      <button  class="btn btn-primary m-0 rounded-0 px-4 shuffle-filter" role="button" data-bs-toggle="button" data-filter="{{option.label|lower}}">{{ option.label|title}}</button>
+    {%- endfor -%}
+  </div>
