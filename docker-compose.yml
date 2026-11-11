@@ -57,6 +57,14 @@ secrets:
     file: "./secrets/JWT_PRIVATE_KEY"
 
 services:
+  fix-drupal-permissions:
+    image: alpine
+    user: "0:0"
+    command: >
+      sh -c "mkdir -p /public /private && chown -R 100:101 /public /private && chmod -R 775 /public /private"
+    volumes:
+      - drupal-public-files:/public
+      - drupal-private-files:/private
   activemq:
     <<: *common
     image: islandora/activemq:${ISLANDORA_TAG}
@@ -106,6 +114,9 @@ services:
 
   drupal:
     <<: *common
+    depends_on:
+      fix-drupal-permissions:
+        condition: service_completed_successfully
     build:
       args:
         REPOSITORY: islandora
@@ -140,13 +151,13 @@ services:
       DRUPAL_DEFAULT_CONFIGDIR: /var/www/drupal/config/sync
       DRUPAL_DEFAULT_FCREPO_HOST: fcrepo
       DRUPAL_DEFAULT_FCREPO_PORT: 8080
-      DRUPAL_DEFAULT_FCREPO_URL: ${URI_SCHEME}://fcrepo:8080/fcrepo/rest/
+      DRUPAL_DEFAULT_FCREPO_URL: http://fcrepo:8080/fcrepo/rest/
       DRUPAL_DEFAULT_INSTALL_EXISTING_CONFIG: "true"
       DRUPAL_DEFAULT_NAME: Islandora Digital Collections
       DRUPAL_DEFAULT_PROFILE: minimal
       DRUPAL_DEFAULT_SITE_URL: ${DOMAIN}
       DRUPAL_DEFAULT_SOLR_CORE: default
-      DRUPAL_ENABLE_HTTPS: "false"
+      DRUPAL_ENABLE_HTTPS: "true"
       DRUSH_OPTIONS_URI: ${URI_SCHEME}://${DOMAIN}
       NGINX_REAL_IP_RECURSIVE: ${REVERSE_PROXY}
       NGINX_SET_REAL_IP_FROM: ${FRONTEND_IP_1}
@@ -170,8 +181,14 @@ services:
       - source: JWT_PRIVATE_KEY
       - source: JWT_PUBLIC_KEY
     volumes:
-      - ${DRUPAL_PUBLIC_FILES_PATH:-./data/drupal/public}:/var/www/drupal/web/sites/default/files
-      - ${DRUPAL_PRIVATE_FILES_PATH:-./data/drupal/private}:/var/www/drupal/private
+      - read_only: false
+        source: drupal-public-files
+        target: /var/www/drupal/web/sites/default/files
+        type: volume
+      - read_only: false
+        source: drupal-private-files
+        target: /var/www/drupal/private
+        type: volume
       - drupal-solr-config:/opt/solr/server/solr/default:z,rw
       - ./certs/RootCA.cer:/usr/local/share/ca-certificates/RootCA.cer:ro
     deploy:
@@ -197,7 +214,7 @@ services:
       - source: JWT_ADMIN_TOKEN
       - source: JWT_PUBLIC_KEY
     volumes:
-      - ${FCREPO_STORAGE_PATH:-./data/fcrepo}:/data:rw
+      - fcrepo-data:/data:rw
 
   fits:
     <<: *common
