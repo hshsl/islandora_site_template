@@ -77,7 +77,7 @@ services:
 
   blazegraph:
     <<: *common
-    image: islandora/blazegraph:${ISLANDORA_TAG}
+    image: islandora/blazegraph:6.4.3@sha256:015e308ae0a296cdb87c83c10da976ed970d2bfa971290aa1147593df8cf445d
     volumes:
       - blazegraph-data:/data:rw
     deploy:
@@ -190,7 +190,7 @@ services:
       FCREPO_ALLOW_EXTERNAL_DEFAULT: http://default/
       FCREPO_ALLOW_EXTERNAL_DRUPAL: https://${DOMAIN}/
       FCREPO_PERSISTENCE_TYPE: mysql
-    image: islandora/fcrepo6:${ISLANDORA_TAG}
+    image: islandora/fcrepo:${ISLANDORA_TAG}
     secrets:
       - source: FCREPO_DB_PASSWORD
       - source: DB_ROOT_PASSWORD
