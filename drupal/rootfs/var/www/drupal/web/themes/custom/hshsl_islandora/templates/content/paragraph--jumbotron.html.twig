@@ -58,11 +58,11 @@
     {% block content %}
       <div class="p-5 my-4" style="{{ properties|join }}">
         <div class="container-fluid py-5">
-          <h1 class="display-5 fw-bold">
+          <h1 class="display-5 fw-bold" style="color: {{ content.field_text_color|render|striptags|trim }}">
               {{ content.field_title|render }}
           </h1>
-          <p class="col-md-8 fs-4">
-              {{ content.field_caption_text|render }}
+          <p class="col-md-8 fs-4" style="color: {{ content.field_text_color|render|striptags|trim }}">
+              {{ content.field_caption_text|render|striptags|trim }}
           </p>
           <p>
             <a href="{{ content.field_link[0]['#url']|render }}" class="btn btn-primary btn-lg">{{ content.field_link[0]['#title']|render }}</a>

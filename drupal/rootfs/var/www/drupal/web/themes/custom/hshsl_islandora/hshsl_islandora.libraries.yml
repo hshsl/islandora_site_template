@@ -8,6 +8,7 @@ global-scripts:
   js:
     /libraries/shufflejs/dist/shuffle.min.js: { minified: true }
     js/hshsl_islandora.js: {}
+    js/select2-accessibility.js: {}
   dependencies:
     - core/drupal
     - core/jquery

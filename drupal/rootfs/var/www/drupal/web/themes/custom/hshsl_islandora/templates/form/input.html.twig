@@ -21,6 +21,9 @@
   %}
   <input{{ attributes.addClass(classes) }} />
 {% else %}
+  {% if attributes.id == 'edit-search-textfield' %}
+    {% set attributes = attributes.setAttribute('aria-label', 'Search text'|t) %}
+  {% endif %}
   <input{{ attributes }} />
 {% endif %}
 {{ children }}
